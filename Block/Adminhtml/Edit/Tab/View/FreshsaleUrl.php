@@ -86,7 +86,11 @@ class FreshsaleUrl extends PersonalInfo
     public function getFreshsaleProfileUrl()
     {
         $customer = $this->customerRepository->getById($this->getCustomerId());
-        $freshSaleId = $customer->getCustomAttribute(Helper::FRESHSALES_ATTRIBUTE_CODE)->getValue();
-        return (string)$this->freshsaleHelper->getGeneralConfig('api_url') . DIRECTORY_SEPARATOR . $freshSaleId;
+        $freshSaleIdAttribute = $customer->getCustomAttribute(Helper::FRESHSALES_ATTRIBUTE_CODE);
+        if ($freshSaleIdAttribute) {
+            $freshSaleId = $freshSaleIdAttribute->getValue();
+            return (string)$this->freshsaleHelper->getGeneralConfig('api_url') . DIRECTORY_SEPARATOR . $freshSaleId;
+        }
+        return null;
     }
 }
