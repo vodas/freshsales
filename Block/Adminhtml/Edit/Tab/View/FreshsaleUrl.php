@@ -2,14 +2,23 @@
 
 namespace Freshsales\Module\Block\Adminhtml\Edit\Tab\View;
 
-use Freshsales\Module\Helper\Data as Helper;
-use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Backend\Block\Template\Context;
 use Magento\Customer\Api\AccountManagementInterface;
+use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Customer\Api\Data\CustomerInterfaceFactory;
+use Magento\Customer\Api\GroupRepositoryInterface;
 use Magento\Customer\Block\Adminhtml\Edit\Tab\View\PersonalInfo;
+use Magento\Customer\Helper\Address;
 use Magento\Customer\Model\Address\Mapper;
+use Magento\Customer\Model\Logger;
+use Magento\Framework\Api\DataObjectHelper;
+use Magento\Framework\Registry;
+use Magento\Framework\Stdlib\DateTime;
+use Freshsales\Module\Helper\Data as Helper;
 
 /**
  * Class FreshsaleUrl
+ *
  * @package Freshsales\Module\Block\Adminhtml\Edit\Tab\View
  */
 class FreshsaleUrl extends PersonalInfo
@@ -20,22 +29,42 @@ class FreshsaleUrl extends PersonalInfo
      */
     public $freshsaleHelper;
 
+    /**
+     * @var CustomerRepositoryInterface
+     */
     public $customerRepository;
 
+    /**
+     * FreshsaleUrl constructor.
+     *
+     * @param Context                     $context
+     * @param AccountManagementInterface  $accountManagement
+     * @param GroupRepositoryInterface    $groupRepository
+     * @param CustomerInterfaceFactory    $customerDataFactory
+     * @param Address                     $addressHelper
+     * @param DateTime                    $dateTime
+     * @param Registry                    $registry
+     * @param Mapper                      $addressMapper
+     * @param DataObjectHelper            $dataObjectHelper
+     * @param Logger                      $customerLogger
+     * @param Helper                      $helper
+     * @param CustomerRepositoryInterface $customerRepository
+     * @param array                       $data
+     */
     public function __construct(
-      \Magento\Backend\Block\Template\Context $context,
-      AccountManagementInterface $accountManagement,
-      \Magento\Customer\Api\GroupRepositoryInterface $groupRepository,
-      \Magento\Customer\Api\Data\CustomerInterfaceFactory $customerDataFactory,
-      \Magento\Customer\Helper\Address $addressHelper,
-      \Magento\Framework\Stdlib\DateTime $dateTime,
-      \Magento\Framework\Registry $registry,
-      Mapper $addressMapper,
-      \Magento\Framework\Api\DataObjectHelper $dataObjectHelper,
-      \Magento\Customer\Model\Logger $customerLogger,
-      Helper $helper,
-      CustomerRepositoryInterface $customerRepository,
-      array $data = []
+        Context $context,
+        AccountManagementInterface $accountManagement,
+        GroupRepositoryInterface $groupRepository,
+        CustomerInterfaceFactory $customerDataFactory,
+        Address $addressHelper,
+        DateTime $dateTime,
+        Registry $registry,
+        Mapper $addressMapper,
+        DataObjectHelper $dataObjectHelper,
+        Logger $customerLogger,
+        Helper $helper,
+        CustomerRepositoryInterface $customerRepository,
+        array $data = []
     )
     {
         $this->freshsaleHelper = $helper;
