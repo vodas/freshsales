@@ -13,11 +13,17 @@ use PHPUnit\Framework\TestCase;
  */
 class HelperTest extends TestCase
 {
-    const API_KEY = '';
+    const API_KEY = 'KJ_vE2J_P64QksCcWLIXXw';
 
-    const API_URL = '';
+    const API_URL = 'https://myown123.freshsales.io/contacts';
 
     protected $helper;
+
+    protected $userData = [
+        'first_name' => 'Adam',
+        'last_name' => 'Nowak',
+        'email' => 'adam@nowak.pl',
+    ];
 
     public function setUp()
     {
@@ -27,6 +33,6 @@ class HelperTest extends TestCase
 
     public function testGetMessage()
     {
-        $this->assertTrue(is_string("AAA"));
+        $this->assertTrue(is_string($this->helper->makeRequestToApi(self::API_URL, self::API_KEY, $this->userData)));
     }
 }
